@@ -16,6 +16,7 @@
       </v-btn>
     </v-layout>
     <v-data-table
+      no-data-text="Нет доступных данных"
       :headers="headers"
       :items="orders"
       :items-per-page="5"
@@ -57,7 +58,24 @@ export default {
   methods: {
     saveTable() {
       let wb = XLSX.utils.book_new();
-      let worksheet = XLSX.utils.json_to_sheet(this.orders);
+
+      let clonedOrders = JSON.parse(JSON.stringify(this.orders));
+
+      clonedOrders.map( (item) => {
+        item.customerId = item.customer.name;        
+        item.resourceId = item.resource.name;
+
+        item.customer = undefined;        
+        item.resource = undefined;
+        item.id = undefined;
+
+        return item;        
+      });
+
+      console.log(clonedOrders);
+      
+      let worksheet = XLSX.utils.json_to_sheet( JSON.parse( JSON.stringify( clonedOrders ) ) );
+
       XLSX.utils.book_append_sheet(wb, worksheet);
       XLSX.writeFile(wb, 'orders.xlsx');      
     }

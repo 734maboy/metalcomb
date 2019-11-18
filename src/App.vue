@@ -8,7 +8,8 @@
       <router-link to="/">
         <v-btn
           depressed
-          color="primary"
+          icon
+          text
         >
           <v-icon>
             mdi-home
@@ -19,7 +20,8 @@
         <router-link to="/login">
           <v-btn
             depressed
-            color="primary"
+            icon
+            text
           >
             <v-icon>
               mdi-login-variant
@@ -29,7 +31,8 @@
         <router-link to="/signup">
           <v-btn
             depressed
-            color="primary"
+            icon
+            text
           >
             <v-icon>
               mdi-account-plus
@@ -40,11 +43,34 @@
       <template
         v-else
       >
+        <router-link to="/import">
+          <v-btn
+            depressed
+            text
+          >
+          Импорт
+            <!-- <v-icon>
+              mdi-file-upload
+            </v-icon> -->
+          </v-btn> 
+        </router-link>
+        <router-link to="/export" >
+          <v-btn
+            depressed
+            text
+          >
+          Экспорт
+            <!-- <v-icon>
+              mdi-file-download
+            </v-icon> -->
+          </v-btn>
+        </router-link>
         <v-spacer></v-spacer>
         <span> {{username}} </span>
         <v-btn
-          color="primary"
           depressed
+          text
+          icon
           @click="logOut"
         >
           <v-icon>mdi-exit-run</v-icon>
@@ -86,6 +112,13 @@ export default {
       this.$store.commit('logOut');
       this.$router.push('/');
     }
-  }
+  },
+  created() {
+    Axios.get('http://localhost:3000/orders?_expand=resource&_expand=customer')
+    .then( resp => {
+      let orders = resp.data.length > 0 ? resp.data : [];
+      this.$store.commit('fillOrders', orders);
+    })
+  },
 };
 </script>

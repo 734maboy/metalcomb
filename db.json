@@ -1,4 +1,37 @@
 {
+  "customers": [
+    { "id": 1, "name": "ООО Customer1Name" },
+    { "id": 2, "name": "ООО Customer2Name" },
+    { "id": 3, "name": "ООО Customer3Name" },
+    { "id": 4, "name": "ООО Customer4Name" },
+    { "id": 5, "name": "ООО Customer5Name" }
+  ],
+  "resources": [
+    { "id": 1, "name": "Resource1" },
+    { "id": 2, "name": "Resource2" },
+    { "id": 3, "name": "Resource3" },
+    { "id": 4, "name": "Resource4" },
+    { "id": 5, "name": "Resource5" }
+  ],
+  "orders": [
+    { "id": 1, "customerId": 1, "resourceId": 5, "pricePerTon": 10000, "tons": 10 },
+    { "id": 2, "customerId": 2, "resourceId": 4, "pricePerTon": 12000, "tons": 8 },
+    { "id": 3, "customerId": 3, "resourceId": 3, "pricePerTon": 14000, "tons": 6 },
+    { "id": 4, "customerId": 4, "resourceId": 2, "pricePerTon": 16000, "tons": 4 },
+    { "id": 5, "customerId": 5, "resourceId": 1, "pricePerTon": 18000, "tons": 2 },
+    { "id": 6, "customerId": 4, "resourceId": 2, "pricePerTon": 20000, "tons": 64 },
+    { "id": 7, "customerId": 3, "resourceId": 3, "pricePerTon": 22000, "tons": 21 },
+    { "id": 8, "customerId": 2, "resourceId": 4, "pricePerTon": 24000, "tons": 62 },
+    { "id": 9, "customerId": 1, "resourceId": 5, "pricePerTon": 26000, "tons": 22 },
+    { "id": 10, "customerId": 2, "resourceId": 4, "pricePerTon": 28000, "tons": 10 },
+    { "id": 11, "customerId": 3, "resourceId": 3, "pricePerTon": 30000, "tons": 12 },
+    { "id": 12, "customerId": 4, "resourceId": 2, "pricePerTon": 32000, "tons": 18 },
+    { "id": 13, "customerId": 5, "resourceId": 1, "pricePerTon": 34000, "tons": 17 },
+    { "id": 14, "customerId": 4, "resourceId": 2, "pricePerTon": 36000, "tons": 356 },
+    { "id": 15, "customerId": 3, "resourceId": 3, "pricePerTon": 38000, "tons": 66 },
+    { "id": 16, "customerId": 2, "resourceId": 4, "pricePerTon": 40000, "tons": 78 },
+    { "id": 17, "customerId": 1, "resourceId": 5, "pricePerTon": 42000, "tons": 289 }
+  ],
   "posts": [
     {
       "id": 1,

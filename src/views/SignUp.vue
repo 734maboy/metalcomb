@@ -109,6 +109,7 @@
           :value="success"
           type="success"
           transition="slide-x-transition"
+          :timeout="2000"
         >
           <v-row
             align="center"
@@ -124,6 +125,7 @@
             </v-col>
           </v-row>
         </v-alert>
+  
         <v-alert 
           :value="warning"
           type="warning"
@@ -154,6 +156,7 @@
           :value="error"
           type="error"
           transition="slide-x-transition"
+          :timeout="2000"
         >
           <v-row
             align="center"

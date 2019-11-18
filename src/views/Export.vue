@@ -2,25 +2,29 @@
   <v-container
     fluid
   >
-  <h1>Экспорт данных заказов</h1>
-  <v-layout>
-    <v-btn
-      class="mb-5"
-      color="primary"
-      @click="saveTable"
-    >
-      Сохранить *.xlsx
-    </v-btn>
-  </v-layout>
-  <v-data-table
-    :headers="headers"
-    :items="orders"
-    :items-per-page="5"
-    caption="Заказы"
-    class="elevation-1"
-    loading
-    loading-text="Данные загружаются"
-  ></v-data-table>
+  <v-card>
+    <v-card-title>Экспорт данных заказов</v-card-title>
+    <v-layout>
+      <v-btn
+        class="mb-5 ml-2"
+        elevation="0"
+        text
+        color="primary"
+        @click="saveTable"
+      >
+        Сохранить *.xlsx
+      </v-btn>
+    </v-layout>
+    <v-data-table
+      :headers="headers"
+      :items="orders"
+      :items-per-page="5"
+      caption="Заказы"
+      class="elevation-1"
+      loading
+      loading-text="Данные загружаются"
+    ></v-data-table>
+  </v-card>
   </v-container>
 </template>
 

@@ -104,42 +104,65 @@ export default {
         
         workbook = XLSX.read(bstr, {type:"binary"});
         let jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]],{raw: true});  
+
         console.log(jsonData);
 
         let customers = await Axios.get('http://localhost:3000/customers');
         let resources = await Axios.get('http://localhost:3000/resources');
-        
-        let newOrders = mapOrderRecords(jsonData, customers, resources);
+
+       
+        this.createOrderRecords(jsonData, customers.data, resources.data);
       };
     },
 
-    createOrderRecords(newOrders, customers, resources) {
+    async createOrderRecords(newOrders, customers, resources) {
 
       let arr = [];
       
       for( let order of newOrders ) {
         let newOrderItem = {};
 
-        let customer = customers.find( item => { item.name == order.customerId });
-        let resource = resources.find( item => { item.name == order.resourceId });
+        let customer = customers.find( item => item.name == order.customerId );
+        let resource = resources.find( item => item.name == order.resourceId );
 
-        if ( customer != undefined ) {
-          // ... add new to DB
+
+        if ( customer == undefined ) {
+          await Axios.post('http://localhost:3000/customers', {
+            name: order.customerId
+          })
+          .then( resp => {
+            newOrderItem.customerId = resp.data.id;
+            customers.push(resp.data);
+          });
         } else {
-          // ... add prop customerId to newOrderItem
+          newOrderItem.customerId = customer.id;
         }
 
-        if ( resource != undefined ) {
-          // ... add new to DB
+        if ( resource == undefined ) {
+          await Axios.post('http://localhost:3000/resources', {
+            name: order.resourceId
+          })
+          .then( resp => {
+            newOrderItem.resourceId = resp.data.id;
+            resources.push(resp.data);  
+          });
         } else {
-          // ... add prop resourceId to newOrderItem
+          newOrderItem.resourceId = resource.id
         }
+
+        newOrderItem.pricePerTon = order.pricePerTon;
+        newOrderItem.tons = order.tons;
+       
+        await Axios.post('http://localhost:3000/orders', newOrderItem);
       }
-    },
 
-    findSameValue(arr, key, valueToFind) {
-      return arr.find( item => { item[key] == valueToFind} );
-    }
+      Axios.get('http://localhost:3000/orders?_expand=resource&_expand=customer')
+      .then( resp => {
+        let orders = resp.data.length > 0 ? resp.data : [];
+        this.$store.commit('fillOrders', orders);
+      });
+      
+    },
   },
 }
 </script>

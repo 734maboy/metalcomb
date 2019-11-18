@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 let Store = new Vuex.Store({
   state: {
-    logged: false,
+    logged: true,
     username: '',
 
     orders: [],

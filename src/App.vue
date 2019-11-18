@@ -1,32 +1,91 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <router-link to="/">
+        <v-btn
+          depressed
+          color="primary"
+        >
+          <v-icon>
+            mdi-home
+          </v-icon>
+        </v-btn>
+      </router-link>
+      <template v-if="!isLogged" >
+        <router-link to="/login">
+          <v-btn
+            depressed
+            color="primary"
+          >
+            <v-icon>
+              mdi-login-variant
+            </v-icon>
+          </v-btn> 
+        </router-link>
+        <router-link to="/signup">
+          <v-btn
+            depressed
+            color="primary"
+          >
+            <v-icon>
+              mdi-account-plus
+            </v-icon>
+          </v-btn> 
+        </router-link>
+      </template>
+      <template
+        v-else
+      >
+        <v-spacer></v-spacer>
+        <span> {{username}} </span>
+        <v-btn
+          color="primary"
+          depressed
+          @click="logOut"
+        >
+          <v-icon>mdi-exit-run</v-icon>
+        </v-btn>
+      </template>
+
+    </v-app-bar>
+
+    <v-content>
+      <router-view></router-view>
+    </v-content>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-#nav {
-  padding: 30px;
+import Axios from 'axios';
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+export default {
+  name: 'App',
 
-    &.router-link-exact-active {
-      color: #42b983;
+  components: {
+  },
+
+  data: () => ({
+    //
+  }),
+  
+  computed: {
+    isLogged() {
+      return this.$store.state.logged;
+    },
+    username() {
+      return this.$store.state.username;
+    }
+  },
+  methods: {
+    logOut() {
+      this.$store.commit('logOut');
+      this.$router.push('/');
     }
   }
-}
-</style>
+};
+</script>

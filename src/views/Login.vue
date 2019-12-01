@@ -2,7 +2,7 @@
   <v-container
     fluid
   >
-  <v-layout
+    <v-layout
       class="
         d-flex 
         flex-column 
@@ -99,6 +99,7 @@ export default {
   },
   methods: {
     logIn() {
+      
       Axios.get('http://localhost:3000/users?email='+this.email.trim() +'&password='+this.password.trim())
       .then( response => { 
         if (response.data.length == 1) {
